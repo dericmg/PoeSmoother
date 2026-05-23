@@ -253,18 +253,16 @@ public partial class MainWindow : Window
                 {
                     if (_ggpkPath.EndsWith(".bin", StringComparison.OrdinalIgnoreCase))
                     {
-                        var index = new LibBundle3.Index(_ggpkPath, false);
+                        using var index = new LibBundle3.Index(_ggpkPath, false);
                         index.ParsePaths();
                         PatchIndex(index, patchesToApply);
-                        index.Dispose();
                     }
                     else if (_ggpkPath.EndsWith(".ggpk", StringComparison.OrdinalIgnoreCase))
                     {
-                        BundledGGPK ggpk = new(_ggpkPath, false);
+                        using BundledGGPK ggpk = new(_ggpkPath, false);
                         var index = ggpk.Index;
                         index.ParsePaths();
                         PatchIndex(index, patchesToApply);
-                        ggpk.Dispose();
                     }
                     else
                     {
@@ -332,27 +330,25 @@ public partial class MainWindow : Window
                 {
                     Dispatcher.Invoke(() =>
                     {
-                        StatusTextBlock.Text = $"Restoring ({done}/{total}): {Path.GetFileName(path)}";
+                        StatusTextBlock.Text = $"Restoring ({done}/{total})";
                         ProgressBar.Value = done;
                     });
                 }
 
                 if (_ggpkPath.EndsWith(".bin", StringComparison.OrdinalIgnoreCase))
                 {
-                    var index = new LibBundle3.Index(_ggpkPath, false);
+                    using var index = new LibBundle3.Index(_ggpkPath, false);
                     index.ParsePaths();
                     restored = BackupManager.Restore(index, game, Progress);
                     index.Save();
-                    index.Dispose();
                 }
                 else if (_ggpkPath.EndsWith(".ggpk", StringComparison.OrdinalIgnoreCase))
                 {
-                    BundledGGPK ggpk = new(_ggpkPath, false);
+                    using BundledGGPK ggpk = new(_ggpkPath, false);
                     var index = ggpk.Index;
                     index.ParsePaths();
                     restored = BackupManager.Restore(index, game, Progress);
                     index.Save();
-                    ggpk.Dispose();
                 }
                 else
                 {
