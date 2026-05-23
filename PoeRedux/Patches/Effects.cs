@@ -1,5 +1,7 @@
 using LibBundle3.Nodes;
 using System.Text;
+using System.Text.RegularExpressions;
+using PoeRedux.Services;
 
 namespace PoeRedux.Patches;
 
@@ -299,6 +301,7 @@ public class Effects : IPatch
         {
             newBytes = [.. Encoding.Unicode.GetPreamble(), .. newBytes];
         }
+        BackupManager.RecordOriginal(record);
         record.Write(newBytes);
     }
 
