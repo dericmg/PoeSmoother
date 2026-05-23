@@ -9,6 +9,7 @@ using System.IO;
 using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Interop;
+using PoeRedux.Patches.Black;
 
 namespace PoeRedux;
 
@@ -69,6 +70,14 @@ public partial class MainWindow : Window
             new Particles(),
             new Effects(),
             new BlackScreen(),
+            // new Aoc(),
+            // new Env(),
+            // new Epk(),
+            // new Ffx(),
+            // new Hlsl(),
+            // new Mat(),
+            // new NoCorpse(),
+            // new Pet(),
         };
 
         foreach (var patch in patchInstances)
